@@ -13,7 +13,7 @@ app.use(cors({
         "https://recipe-notes-app1.onrender.com"
     ],
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-    credentials: true
+
 }));
 
 app.use(express.json());;
