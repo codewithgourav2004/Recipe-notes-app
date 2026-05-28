@@ -8,11 +8,18 @@ const noteModel = require("./models/notes.model");
 
 app.use(express.static(path.join(__dirname, "public")));
 
+const cors = require("cors");
+
 app.use(cors({
-    origin: "https://recipe-notes-app.onrender.com",
-    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+    origin: [
+        "http://localhost:5173",
+        "https://recipe-notes-app.onrender.com"
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
     credentials: true
 }));
+
+app.options("*", cors());
 
 app.use(express.json());
 
