@@ -1,5 +1,7 @@
 const express = require("express");
 const cors = require("cors");
+const express = require("express");
+const cors = require("cors");
 const path = require("path");
 
 const app = express();
@@ -11,12 +13,13 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(cors({
     origin: [
         "http://localhost:5173",
-        "https://recipe-notes-app.onrender.com"
+        "https://recipe-notes-app1.onrender.com"
     ],
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
     credentials: true
 }));
 
+app.options("/post", cors());
 app.use(express.json());
 
 
