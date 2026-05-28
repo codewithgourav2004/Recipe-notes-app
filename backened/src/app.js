@@ -8,8 +8,6 @@ const noteModel = require("./models/notes.model");
 
 app.use(express.static(path.join(__dirname, "public")));
 
-const cors = require("cors");
-
 app.use(cors({
     origin: [
         "http://localhost:5173",
