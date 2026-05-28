@@ -1,5 +1,4 @@
 const express = require("express");
-const cors = require("cors");
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
@@ -9,7 +8,6 @@ const app = express();
 const noteModel = require("./models/notes.model");
 
 app.use(express.static(path.join(__dirname, "public")));
-
 app.use(cors({
     origin: [
         "http://localhost:5173",
@@ -20,7 +18,10 @@ app.use(cors({
 }));
 
 app.options("/post", cors());
-app.use(express.json());
+app.options("/post/:id", cors());
+
+app.use(express.json());;
+
 
 
 // ROOT ROUTE
