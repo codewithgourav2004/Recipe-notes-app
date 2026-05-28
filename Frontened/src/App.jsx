@@ -8,7 +8,7 @@ const App = () => {
 
   // Fetch Notes
   function fetchNotes() {
-    axios.get('http://localhost:3000/post')
+    axios.get('https://recipe-notes-app.onrender.com/post')
       .then((res) => {
         setNotes(res.data.notes)
       })
@@ -27,7 +27,7 @@ const App = () => {
 
     const { title, discription } = e.target.elements
 
-    axios.post("http://localhost:3000/post", {
+    axios.post("https://recipe-notes-app.onrender.com/post", {
       title: title.value,
       discription: discription.value
     })
@@ -46,7 +46,7 @@ const App = () => {
   // Delete Note
   function handleDelete(noteId) {
 
-    axios.delete(`http://localhost:3000/post/${noteId}`)
+    axios.delete(`https://recipe-notes-app.onrender.com/post/${noteId}`)
       .then((res) => {
         console.log(res.data)
 
@@ -63,7 +63,7 @@ const App = () => {
     const updatedTitle = prompt("Enter new title")
     const updatedDiscription = prompt("Enter new description")
 
-    axios.put(`http://localhost:3000/post/${noteId}`, {
+    axios.put(`https://recipe-notes-app.onrender.com/post/${noteId}`, {
       title: updatedTitle,
       discription: updatedDiscription
     })
