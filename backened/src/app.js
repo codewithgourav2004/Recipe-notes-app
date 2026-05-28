@@ -17,9 +17,6 @@ app.use(cors({
     credentials: true
 }));
 
-app.options("/post", cors());
-app.options("/post/:id", cors());
-
 app.use(express.json());;
 
 
