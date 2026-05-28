@@ -3,11 +3,15 @@
 const express = require("express");
 const cors=require("cors")
 const app = express();
-app.use(cors());
 const path=require("path")
 const noteModel = require("./models/notes.model");
 app.use(express.static("./public"))
 
+app.use(cors({
+    origin: "https://recipe-notes-app.onrender.com",
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+    credentials: true
+}));
 
 app.use(express.json());
 
@@ -111,12 +115,7 @@ app.put("/post/:id", async (req, res) => {
 })
 console.log(__dirname)
 
-app.use('*name',(req, res) => {
 
-    res.sendFile(
-        path.join(__dirname, "../public/index.html")
-    )
 
-})
 
 module.exports = app;
