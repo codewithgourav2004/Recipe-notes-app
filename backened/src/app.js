@@ -1,11 +1,12 @@
-// kaam-server ko create krna
-
 const express = require("express");
-const cors=require("cors")
+const cors = require("cors");
+const path = require("path");
+
 const app = express();
-const path=require("path")
+
 const noteModel = require("./models/notes.model");
-app.use(express.static("./public"))
+
+app.use(express.static(path.join(__dirname, "public")));
 
 app.use(cors({
     origin: "https://recipe-notes-app.onrender.com",
@@ -16,9 +17,13 @@ app.use(cors({
 app.use(express.json());
 
 
-// POST /notes
-// req.body => { title, description }
+// ROOT ROUTE
+app.get("/", (req, res) => {
+    res.send("Backend Running Successfully");
+});
 
+
+// CREATE NOTE
 app.post("/post", async (req, res) => {
 
     try {
@@ -46,76 +51,82 @@ app.post("/post", async (req, res) => {
 
 });
 
-//get /notes
 
-app.get("/post",async (req,res)=>{
-  const notes=  await noteModel.find()
+// GET NOTES
+app.get("/post", async (req, res) => {
 
-  res.status(200).json({
-message:"notes feteched sucessfully",
-notes
-  })
-//   console.log(req.query.name)
-})
+    try {
 
-//delte note with the id 
+        const notes = await noteModel.find();
 
-app.delete('/post/:id',async(req,res)=>{
-    const id =req.params.id
-    console.log(id)
+        res.status(200).json({
+            message: "Notes fetched successfully",
+            notes
+        });
 
-    await noteModel.findByIdAndDelete(id)
+    } catch (error) {
 
-    res.status(200).json({
-        message:"note delte sucessfully"
-    })
-})
+        res.status(500).json({
+            message: error.message
+        });
 
-//note update krna-patch api
+    }
+
+});
 
 
-app.patch('/post/:id', async(req,res)=>{
-    const id=req.params.id
-    const {discription}=req.body
+// DELETE NOTE
+app.delete("/post/:id", async (req, res) => {
 
-    await noteModel.findByIdAndUpdate(id,{discription})
+    try {
 
-    res.status(200).json({
-        message:"note updated successfully"
-    })
-})
+        await noteModel.findByIdAndDelete(req.params.id);
+
+        res.status(200).json({
+            message: "Note deleted successfully"
+        });
+
+    } catch (error) {
+
+        res.status(500).json({
+            message: error.message
+        });
+
+    }
+
+});
+
+
+// UPDATE NOTE
 app.put("/post/:id", async (req, res) => {
 
-  try {
+    try {
 
-    const { title, discription } = req.body
+        const { title, discription } = req.body;
 
-    const updatedNote = await noteModel.findByIdAndUpdate(
-      req.params.id,
-      {
-        title,
-        discription
-      },
-      { new: true }
-    )
+        const updatedNote = await noteModel.findByIdAndUpdate(
+            req.params.id,
+            {
+                title,
+                discription
+            },
+            { new: true }
+        );
 
-    res.json({
-      success: true,
-      updatedNote
-    })
+        res.status(200).json({
+            success: true,
+            updatedNote
+        });
 
-  } catch (error) {
+    } catch (error) {
 
-    res.status(500).json({
-      success: false,
-      message: error.message
-    })
-  }
- 
-})
-console.log(__dirname)
+        res.status(500).json({
+            success: false,
+            message: error.message
+        });
 
+    }
 
-
+});
 
 module.exports = app;
