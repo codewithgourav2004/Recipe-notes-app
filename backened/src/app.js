@@ -7,14 +7,7 @@ const app = express();
 const noteModel = require("./models/notes.model");
 
 app.use(express.static(path.join(__dirname, "public")));
-app.use(cors({
-    origin: [
-        "http://localhost:5173",
-        "https://recipe-notes-app1.onrender.com"
-    ],
-    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-
-}));
+app.use(cors())
 
 app.use(express.json());
 
