@@ -14,12 +14,6 @@ app.use(express.json());
 
 
 
-// ROOT ROUTE
-app.get("/", (req, res) => {
-    res.send("Backend Running Successfully");
-});
-
-
 // CREATE NOTE
 app.post("/post", async (req, res) => {
 
