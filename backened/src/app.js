@@ -1,14 +1,15 @@
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
+const express = require("express");
+const cors = require("cors");
+const path = require("path");
 
 const app = express();
 
 const noteModel = require("./models/notes.model");
 
-app.use(express.static(path.join(__dirname, "public")));
-app.use(cors())
-
+app.use(cors());
 app.use(express.json());
 
 
@@ -123,6 +124,12 @@ app.put("/post/:id", async (req, res) => {
 
     }
 
+});
+
+app.use(express.static(path.join(__dirname, "public")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
 module.exports = app;
