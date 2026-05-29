@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from "axios"
 
-const API = "https://recipe-notes-backend.onrender.com"
+const API = "https://recipe-notes-app1.onrender.com/"
 
 const App = () => {
 
