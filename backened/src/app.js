@@ -8,7 +8,7 @@ const noteModel = require("./models/notes.model");
 
 app.use(cors());
 app.use(express.json());
-
+app.use(express.static("./public"))
 
 
 // CREATE NOTE
@@ -117,6 +117,6 @@ app.put("/post/:id", async (req, res) => {
 
 });
 
-app.use(express.static(path.join(__dirname, "public")));
+
 
 module.exports = app;
